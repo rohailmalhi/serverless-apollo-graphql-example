@@ -1,0 +1,59 @@
+# NOTE: update this with your service name
+service: serverless-graphql-typescript-starter
+
+# Use the serverless-webpack plugin to transpile ES6
+package:
+  individually: true
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-bundle
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  serverless-offline:
+    httpPort: 3003
+    lambdaPort: 3103
+    noPrependStageInUrl: false
+    useChildProcesses: true
+  bundle:
+    linting: false
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${self:provider.environment.stage}
+  region: us-east-1
+  profile: personalAccount
+  # To load environment variables externally
+  # rename env.example to env.yml and uncomment
+  # the following line. Also, make sure to not
+  # commit your env.yml.
+  #
+  #environment: ${file(env.yml):${self:provider.stage}}
+
+  environment:
+    stage: ${env:stage}
+    region: ${self:provider.region}
+
+functions:
+  graphql:
+    handler: src/graphql.graphqlHandler
+    environment:
+      SLS_DEBUG: true
+    events:
+      - http:
+          path: graphx
+          method: post
+          cors: true
+          integration: lambda-proxy
+
+      - http:
+          path: graphx
+          method: get
+          cors: true
+          integration: lambda-proxy
