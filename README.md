@@ -1,6 +1,6 @@
 
 
-# Serverless GraphQL TypeScript Starter ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
+# Serverless Apollo GraphQL Example ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 This is a basic TypeScript boilerplate to kitstart your Serverless GraphQL projects with AWS Lambda. Here is a [plain JavaScript starter](https://github.com/pimp-my-book/serverless-graphql-nodejs-starter) if you prefer!
 
@@ -14,8 +14,6 @@ This is hugely inspired by the starter that [Anomaly Innovations](https://github
 * [A configured AWS CLI](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
 * [Serverless Framework installed on your machine](https://serverless.com/framework/docs/providers/aws/guide/installation/)
 * [NodeJS](nodejs.org) 
-
-Note this project uses [Yarn](https://yarnpkg.com). 
 
 ## How to get started 🎮
 
@@ -34,19 +32,19 @@ $ cd project-name
 Then Install all its dependancies:
 
 ```
-$ yarn install
+$ npm install
 ```
 
 Then you should be able to invoke the Lambda locally:
 
 ```
-$ yarn offline
+$ npm run offline
 ```
 
 To deploy to AWS run the following command:
 
 ```
-$ yarn deploy
+$ npm run deploy
 ```
 
 This should be a good start to be able to move on and do whatever you gotta do meet business requirements.  
@@ -57,7 +55,3 @@ This should be a good start to be able to move on and do whatever you gotta do m
 #### DynamoDB
 #### Cognito
 
-
-## Contributing😀 
-
-Contributions are most welcome!!
