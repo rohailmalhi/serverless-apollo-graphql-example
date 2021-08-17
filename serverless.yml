@@ -9,7 +9,6 @@ package:
 plugins:
   - serverless-bundle
   - serverless-offline
-  - serverless-dotenv-plugin
 
 # serverless-webpack configuration
 # Enable auto-packing of external modules
@@ -18,7 +17,7 @@ custom:
   serverless-offline:
     httpPort: 3003
     lambdaPort: 3103
-    noPrependStageInUrl: false
+    noPrependStageInUrl: true
     useChildProcesses: true
   bundle:
     linting: false
@@ -26,7 +25,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs14.x
-  stage: ${self:provider.environment.stage}
+  stage: ${opt:stage, self:provider.environment.stage}
   region: us-east-1
   profile: personalAccount
   # To load environment variables externally
