@@ -9,7 +9,7 @@ type Rocket {
 }
 
 type Mission {
-     id: ID!
+     name: String!
      missionPatch(size: PatchSize): String 
 }
 
@@ -34,7 +34,13 @@ enum PatchSize {
 }
 
 type Query {
-     launches: [Launch]
+     """ Get list of launches"""
+     launches(
+          """ The number of results to show. Must be >=1. Defaults to all entries returned """
+          limit: Int
+          """ Offset or skip results from the beginning of the query """
+          offset: Int
+          ): [Launch]
      launch(id: ID!): Launch 
      me: User
 }

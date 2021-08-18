@@ -15,8 +15,8 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   serverless-offline:
-    httpPort: 3003
-    lambdaPort: 3103
+    httpPort: 3004
+    lambdaPort: 3104
     noPrependStageInUrl: true
     useChildProcesses: true
   bundle:
