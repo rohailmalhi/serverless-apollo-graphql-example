@@ -1,7 +1,9 @@
-export const hello = (args: any, context: any) => {
-    return "Your GraphQL API is now LIVE!🎈 "
-}
-
-export const resolveGetAllLaunches = (args: any, context: any, ) => {
-    
-}
+/**
+ * Resolve get all launches
+ * @param root parent
+ * @param param1 args
+ * @param param2 context
+ * @returns list of launches
+ */
+export const resolveGetAllLaunches = async (root, { offset, limit = 10 }, { dataSources }) => 
+    dataSources.launchApi.getAllLaunches({offset, limit})

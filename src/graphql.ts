@@ -1,16 +1,23 @@
-import { ApolloServer, gql } from "apollo-server-lambda";
-import { ITypeDefinitions } from "graphql-tools/dist/Interfaces"
+
+import { ApolloServer } from "apollo-server-lambda";
 import { Context, Callback, APIGatewayEvent } from "aws-lambda"
-import { schema } from "./schema";
-import { resolvers } from "./resolvers";
+import { ITypeDefinitions } from "graphql-tools/dist/Interfaces"
+
+import { schema } from "src/schema";
+import { resolvers } from "src/resolvers";
 import LaunchAPI  from 'src/datasources/launches'
+import Users  from 'src/datasources/users'
+
+import { db } from 'src/models/index';
+const { sequelize } = db;
 
 const typeDef: ITypeDefinitions = schema
 const server = new ApolloServer({
 	typeDefs: typeDef,
 	resolvers: resolvers,
 	dataSources: () => ({
-		launchApi: new LaunchAPI()
+		launchApi: new LaunchAPI(),
+		user: new Users({sequelize}),
 	}),
 	formatError: error => {
 		return error;
@@ -18,12 +25,15 @@ const server = new ApolloServer({
 	formatResponse: (response: any) => {
 		return response;
 	},
-	context: ({ event, context }) => ({
-		headers: event.headers,
-		functionName: context.functionName,
-		event,
-		context
-	}),
+	context: ({ event, context, req }) => {
+
+		return {
+			headers: event.headers,
+			functionName: context.functionName,
+			event,
+			context
+		}
+	},
 	tracing: true,
 	playground: true
 });

@@ -1,6 +1,6 @@
+import { gql } from "apollo-server-lambda"
 
-
-const schema = `
+const schema = gql`
 
 type Rocket {
      id: ID!
@@ -57,5 +57,4 @@ type TripUpdatedResponse {
      launches: [Launch]
 }
 `
-
 export { schema }

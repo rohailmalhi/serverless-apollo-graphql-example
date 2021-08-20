@@ -1,5 +1,5 @@
 # NOTE: update this with your service name
-service: serverless-graphql-typescript-starter
+service: serverless-apollo-graphql-example
 
 # Use the serverless-webpack plugin to transpile ES6
 package:
@@ -15,8 +15,8 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   serverless-offline:
-    httpPort: 3004
-    lambdaPort: 3104
+    httpPort: 3005
+    lambdaPort: 3105
     noPrependStageInUrl: true
     useChildProcesses: true
   bundle:
@@ -25,7 +25,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs14.x
-  stage: ${opt:stage, self:provider.environment.stage}
+  stage: ${opt:stage, self:provider.environment.stage, dev}
   region: us-east-1
   profile: personalAccount
   # To load environment variables externally
@@ -46,13 +46,13 @@ functions:
       SLS_DEBUG: true
     events:
       - http:
-          path: graphx
+          path: api/v1/spacex/launch
           method: post
           cors: true
           integration: lambda-proxy
 
       - http:
-          path: graphx
+          path: api/v1/spacex/launch
           method: get
           cors: true
           integration: lambda-proxy

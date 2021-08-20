@@ -1,5 +1,5 @@
 
-import {RESTDataSource} from 'apollo-datasource-rest' 
+import {RESTDataSource} from 'apollo-datasource-rest'
 
 import { LaunchResponse } from 'src/types/launch'
 
@@ -23,7 +23,6 @@ export default class LaunchAPI extends RESTDataSource {
         if(Array.isArray(response) === true){
             launches = response.map(launch => this.launchReducer(launch))
         }
-        
         return launches;
     }
     
@@ -56,7 +55,6 @@ export default class LaunchAPI extends RESTDataSource {
     private launchReducer(launch: LaunchResponse){
         return{
             id: launch.flight_number || 0,
-            cursor: `${launch.launch_date_unix}`,
             site: launch.launch_site && launch.launch_site.site_name,
             mission: {
                 name: launch.mission_name,
